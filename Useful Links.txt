@@ -1,0 +1,8 @@
+https://winpeguy.wordpress.com/2015/10/30/win10-start-customization-with-layoutmodification-xml/
+http://www.edugeek.net/forums/windows-10/191858-windows-10-customise-task-bar.html
+
+https://docs.microsoft.com/en-us/windows/configuration/configure-windows-10-taskbar
+https://docs.microsoft.com/en-us/windows/configuration/customize-and-export-start-layout#configure-a-partial-start-layout
+https://docs.microsoft.com/en-us/windows/configuration/customize-and-export-start-layout#bmk-exportstartscreenlayout
+https://docs.microsoft.com/en-us/windows/configuration/customize-and-export-start-layout
+https://docs.microsoft.com/en-us/windows-hardware/customize/desktop/customize-start-layout
