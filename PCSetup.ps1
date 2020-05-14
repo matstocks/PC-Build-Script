@@ -592,8 +592,8 @@ function LayoutDesign {
         Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
         Exit
     }
-    Import-StartLayout -LayoutPath "c:\build\LayoutModification.xml" -MountPath $env:SystemDrive\
-    dism /online /Import-DefaultAppAssociations:c:\build\AppAssociations.xml
+    Import-StartLayout -LayoutPath "c:\build\PC-Build-Script-master\LayoutModification.xml" -MountPath $env:SystemDrive\
+    dism /online /Import-DefaultAppAssociations:c:\build\PC-Build-Script-master\AppAssociations.xml
 }
 
 function IntechPower {
