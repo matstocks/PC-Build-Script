@@ -1,1 +1,0 @@
-powershell.exe -ExecutionPolicy Bypass -File "D:\ReclaimWindows10.ps1"
