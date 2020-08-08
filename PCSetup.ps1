@@ -16,7 +16,7 @@ function InstallChoco {
         Exit
     }    
     Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-    choco install adobereader 7zip flashplayerplugin microsoft-edge -y
+    choco install adobereader 7zip microsoft-edge -y
     choco install microsoft-office-deployment --params="'/Channel:Monthly /Language:en-us /64bit /Product:O365BusinessRetail /Exclude:Lync,Groove'" -y
 }
 
