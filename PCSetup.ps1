@@ -13,13 +13,16 @@ function SetPCName {
 }
 
 function InstallChoco {
-            # Ask for elevated permissions if required
+    # Ask for elevated permissions if required
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
         Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
         Exit
-    }  
+        }
     # Install Chocolatey to allow automated installation of packages  
     Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    }
+
+function InstallApps {
     # Install the first set of applications. these are quick so ive added them separately
     choco install adobereader 7zip microsoft-edge -y
     # Install Office365 applications. This takes a while so is done separately. You can change the options here by following the instructions here: https://chocolatey.org/packages/microsoft-office-deployment
@@ -27,8 +30,7 @@ function InstallChoco {
 }
 
 function ReclaimWindows10 {
-
-        # Ask for elevated permissions if required
+    # Ask for elevated permissions if required
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
         Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
         Exit
@@ -600,6 +602,9 @@ function LayoutDesign {
         Exit
     }
     Import-StartLayout -LayoutPath "c:\build\PC-Build-Script-master\LayoutModification.xml" -MountPath $env:SystemDrive\
+    }
+    
+function ApplyDefaultApps {
     dism /online /Import-DefaultAppAssociations:c:\build\PC-Build-Script-master\AppAssociations.xml
 }
 
@@ -630,8 +635,10 @@ function RestartPC{
 }
 
 InstallChoco
-SetPCName
-LayoutDesign
+InstallApps
 ReclaimWindows10
+LayoutDesign
+ApplyDefaultApps
 IntechPower
+SetPCName
 RestartPC
