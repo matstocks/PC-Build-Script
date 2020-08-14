@@ -1,5 +1,8 @@
 Set-ExecutionPolicy remotesigned
+# Begin by creating the various functions which will be called at the end of the script. You can create additional functions if needed.
 function SetPCName {
+    # In our MSP we designate all systems in the format devicetype-companyname-assetid for example DT-MSP-000001 keep in mind that this is the maximum length Windows allows for system names
+    # This function creates VisualBasic pop-up prompts which ask for this information to be input. You can hange these as needed to suite your MSP
     Add-Type -AssemblyName Microsoft.VisualBasic
     $DeviceType = [Microsoft.VisualBasic.Interaction]::InputBox('Enter Device Type (LT or DT)', 'Device Type')
     $CompanyName = [Microsoft.VisualBasic.Interaction]::InputBox('Enter Company Initials (Max 4 letters)', 'Company Initials')
@@ -14,9 +17,12 @@ function InstallChoco {
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
         Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
         Exit
-    }    
+    }  
+    # Install Chocolatey to allow automated installation of packages  
     Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    # Install the first set of applications. these are quick so ive added them separately
     choco install adobereader 7zip microsoft-edge -y
+    # Install Office365 applications. This takes a while so is done separately. You can change the options here by following the instructions here: https://chocolatey.org/packages/microsoft-office-deployment
     choco install microsoft-office-deployment --params="'/Channel:Monthly /Language:en-us /64bit /Product:O365BusinessRetail /Exclude:Lync,Groove'" -y
 }
 
@@ -29,7 +35,7 @@ function ReclaimWindows10 {
     }
 
 
-
+    # Massive deployment section. There are stacks of customization options here. Un-hash the ones your want to apply.
     ##########
     # Privacy Settings
     ##########
@@ -587,6 +593,7 @@ function ReclaimWindows10 {
 
     }
 
+# Uploads a default layout to all NEW users that log into the system. Effects task bar and start menu
 function LayoutDesign {
     If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
         Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
@@ -596,6 +603,7 @@ function LayoutDesign {
     dism /online /Import-DefaultAppAssociations:c:\build\PC-Build-Script-master\AppAssociations.xml
 }
 
+# Custom power profile used for our customers. Ensures systems do not go to sleep.
 function IntechPower {
     POWERCFG -DUPLICATESCHEME 381b4222-f694-41f0-9685-ff5bb260df2e 381b4222-f694-41f0-9685-ff5bb260aaaa
     POWERCFG -CHANGENAME 381b4222-f694-41f0-9685-ff5bb260aaaa "Intech Power Management"
