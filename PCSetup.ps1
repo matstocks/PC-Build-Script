@@ -641,5 +641,5 @@ ReclaimWindows10
 LayoutDesign
 ApplyDefaultApps
 IntechPower
-SetPCName
+#SetPCName
 RestartPC
