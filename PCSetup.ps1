@@ -635,11 +635,17 @@ function RestartPC{
     Restart-Computer
 }
 
+function Branding{
+Invoke-WebRequest -Uri "https://downloads.pacit.tech/intechlogo.bmp" -OutFile "c:\windows\system32\intechlogo.bmp"
+New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation" -Name "Manufacturer" -Value "Intech I.T. Solutions Ltd"  -PropertyType "String" -Force
+}
+
 InstallChoco
 InstallApps
 ReclaimWindows10
 LayoutDesign
 ApplyDefaultApps
 IntechPower
+Branding
 #SetPCName
 RestartPC
