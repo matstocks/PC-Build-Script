@@ -642,9 +642,9 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInfor
 
 InstallChoco
 InstallApps
-ReclaimWindows10
-LayoutDesign
-ApplyDefaultApps
+#ReclaimWindows10
+#LayoutDesign
+#ApplyDefaultApps
 IntechPower
 Branding
 #SetPCName
